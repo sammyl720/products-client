@@ -1,0 +1,12 @@
+<form [formGroup]="addCategoryForm" (submit)="onSubmit()">
+  <h1 mat-dialog-title>Create New Category</h1>
+  <div class="add-category" mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Category Name" formControlName="name">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="submit" mat-button color="primary">Create Category</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+  </form>

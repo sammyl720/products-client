@@ -1,0 +1,57 @@
+<h5>
+  <img src="favicon.ico" alt="Icon">
+  roducts List</h5>
+<small>Manage Your Inventory</small>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onSelectAddProduct()" color="primary">
+      New Product <mat-icon>add</mat-icon>
+  </button>
+    <button mat-menu-item (click)="onSelectAddCategory()">
+    New Category
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-menu>
+
+<table mat-table [dataSource]="products$" class="mat-elevation-z3">
+  <ng-container *ngFor="let columnName of displayColumns">
+    <ng-container [matColumnDef]="columnName">
+      <ng-container [ngSwitch]="columnName">
+        <ng-container *ngSwitchCase="'imageUrl'">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let product">
+            <img [src]="product.imageUrl" width="60" height="60" style="border-radius: 60px;">
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'category'">
+          <th mat-header-cell  *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let product"> {{product.category.name }}</td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'price'">
+          <th mat-header-cell *matHeaderCellDef> Price </th>
+          <td mat-cell *matCellDef="let product"> {{product.price | currency }}</td>
+        </ng-container>
+        <ng-container *ngSwitchCase="'actions'">
+          <th mat-header-cell *matHeaderCellDef>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let product">
+            <button (click)="onUpdate(product)" mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon (click)="onDelete(product.id)" color="danger">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <th mat-header-cell *matHeaderCellDef> {{ columnName }} </th>
+          <td mat-cell *matCellDef="let product"> {{product[columnName] }}</td>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+</table>

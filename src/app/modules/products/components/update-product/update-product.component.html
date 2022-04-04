@@ -1,0 +1,28 @@
+<form [formGroup]="productForm" (submit)="onSubmit()">
+  <h1 mat-dialog-title>Update {{ product.title }}</h1>
+  <div class="update-product" mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Title" formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="description">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Price" formControlName="price">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Image URL" formControlName="imageUrl">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Category" formControlName="categoryId">
+        <mat-option *ngFor="let category of categories$ | async" [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button type="submit" mat-button color="primary">Update Product</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+  </form>
